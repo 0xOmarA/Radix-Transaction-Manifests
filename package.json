@@ -1,0 +1,30 @@
+{
+    "name": "radix-transaction-manifests",
+    "displayName": "Radix Transaction Manifests",
+    "description": "This extension adds language support for the Radix Transaction Manifest files (.rtm) with syntax highlighting, auto-completion, instruction snippets, much more.",
+    "icon": "./images/icon.png",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.66.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "rtm",
+            "aliases": ["Radix Transaction Manifest", "rtm"],
+            "extensions": [".rtm"],
+            "configuration": "./language-configuration.json",
+            "icon": {
+                "light": "./images/icon.png",
+                "dark": "./images/icon.png"
+            }
+        }],
+        "grammars": [{
+            "language": "rtm",
+            "scopeName": "source.rtm",
+            "path": "./syntaxes/rtm.tmLanguage.json"
+        }]
+    }
+}
