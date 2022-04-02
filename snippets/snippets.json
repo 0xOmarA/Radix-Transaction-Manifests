@@ -1,0 +1,8 @@
+{
+    "Add subscription": {
+      "scope": "scope.rtm",
+      "prefix": "CALL_FUNCTION",
+      "body": "subscription: Subscription$0;",
+      "description": "Add subscription property to a class"
+    }
+}  

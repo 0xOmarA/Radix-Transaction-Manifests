@@ -25,6 +25,12 @@
             "language": "rtm",
             "scopeName": "source.rtm",
             "path": "./syntaxes/rtm.tmLanguage.json"
-        }]
+        }],
+        "snippets": [
+            {
+                "language": "rtm",
+                "path": "./snippets/snippets.json"
+            }
+        ]
     }
 }

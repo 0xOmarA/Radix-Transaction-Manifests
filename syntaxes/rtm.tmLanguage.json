@@ -22,6 +22,10 @@
 		{
 			"match": "([0-9]+(u[0-9]+)?)",
 			"name": "constant.numeric.dec.rtm"
+		},
+		{
+			"match": "(true)|(false)",
+			"name": "constant.language.rtm"
 		}
 		
 	],
