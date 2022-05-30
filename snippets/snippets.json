@@ -1,8 +1,198 @@
 {
-    "Add subscription": {
-      "scope": "scope.rtm",
-      "prefix": "CALL_FUNCTION",
-      "body": "subscription: Subscription$0;",
-      "description": "Add subscription property to a class"
-    }
-}  
+  // #####################################################################################################################
+  // Snippets for different common component and resource addresses
+  // #####################################################################################################################
+  "Radix Token": {
+    "scope": "scope.rtm",
+    "prefix": "RADIX_TOKEN",
+    "body": "030000000000000000000000000000000000000000000000000004",
+    "description": "The Radix Token resource address."
+  },
+
+  //TODO: Add system component and other important components.
+
+  // #####################################################################################################################
+  // Snippets for pre-populated instructions that people do often.
+  // #####################################################################################################################
+
+  // Deposits
+  "Deposit Worktop Into Account": {
+    "scope": "scope.rtm",
+    "prefix": "deposit_batch",
+    "body": "CALL_METHOD_WITH_ALL_RESOURCES ComponentAddress(\"${1:Account Address}\") \"deposit_batch\";",
+    "description": "Deposits everything in the transaction worktop into the account."
+  },
+
+  // Withdrawals
+  "Withdraw From Account": {
+    "scope": "scope.rtm",
+    "prefix": "withdraw",
+    "body": "CALL_METHOD ComponentAddress(\"${1:Account Address}\") \"withdraw\" ResourceAddress(\"${2:Address of Resource}\");",
+    "description": "Withdraws all of a specific resource from the account."
+  },
+  "Withdraw From Account by Amount": {
+    "scope": "scope.rtm",
+    "prefix": "withdraw_by_amount",
+    "body": "CALL_METHOD ComponentAddress(\"${1:Account Address}\") \"withdraw_by_amount\" Decimal(\"${2:Amount to Withdraw}\") ResourceAddress(\"${3:Address of Resource}\");",
+    "description": "Withdraws a specific amount of a given resource from the account."
+  },
+  "Withdraw From Account by Ids": {
+    "scope": "scope.rtm",
+    "prefix": "withdraw_by_ids",
+    "body": "CALL_METHOD ComponentAddress(\"${1:Account Address}\") \"withdraw_by_ids\" TreeSet<NonFungibleId>(NonFungibleKey(\"${2:Non Fungible Id}\")) ResourceAddress(\"${3:Address of Resource}\");",
+    "description": "Withdraws a specific NFTs from the account."
+  },
+
+  // Proofs
+  "Create Proof from Account": {
+    "scope": "scope.rtm",
+    "prefix": "create_proof_from_account",
+    "body": "CALL_METHOD ComponentAddress(\"${1:Account Address}\") \"create_proof\" ResourceAddress(\"${2:Address of Resource}\");",
+    "description": "Creates a Proof using all of a given resource in an account. The created Proof is sent Auth Zone."
+  },
+  "Create Proof from Account by Amount": {
+    "scope": "scope.rtm",
+    "prefix": "create_proof_from_account_by_amount",
+    "body": "CALL_METHOD ComponentAddress(\"${1:Account Address}\") \"create_proof_by_amount\" Decimal(\"${2:Resource Amount}\") ResourceAddress(\"${3:Address of Resource}\");",
+    "description": "Creates a Proof using a specific amount of a given resource. The created Proof is sent Auth Zone."
+  },
+  "Create Proof from Account by Ids": {
+    "scope": "scope.rtm",
+    "prefix": "create_proof_from_account_by_ids",
+    "body": "CALL_METHOD ComponentAddress(\"${1:Account Address}\") \"create_proof_by_ids\" TreeSet<NonFungibleId>(NonFungibleKey(\"${2:Non Fungible Id}\")) ResourceAddress(\"${3:Address of Resource}\");",
+    "description": "Creates a Proof using a specific NFTs from the account. The created Proof is sent Auth Zone."
+  },
+
+  // Token Creation
+  // TODO: Reorder.
+  "Create New Token": {
+    "scope": "scope.rtm",
+    "prefix": "new_token",
+    "body": "CALL_FUNCTION PackageAddress(\"010000000000000000000000000000000000000000000000000001\") \"System\" \"new_resource\" Enum(0u8, 18u8) HashMap<String, String>(\"description\", \"${2:Token Description}\", \"url\", \"${3:Token URL}\", \"name\", \"${4:Token Name}\", \"icon_url\", \"${5:Icon URL}\", \"symbol\", \"${6:Token Symbol}\") 0u64 0u64 HashMap<ResourceAddress, U64>() Some(Enum(0u8, Decimal(\"${7:Total Supply}\")));",
+    "description": "Creates a Proof using a specific NFTs from the account. The created Proof is sent Auth Zone."
+  },
+
+  // #####################################################################################################################
+  // Snippets for the main instructions
+  // #####################################################################################################################
+  
+  // Take from worktop instructions
+  "Take from Worktop": {
+    "scope": "scope.rtm",
+    "prefix": "take_from_worktop",
+    "body": "TAKE_FROM_WORKTOP ResourceAddress(\"${1:Resource Address}\") Bucket(\"${2:Bucket Name}\");",
+    "description": "Takes all of a given resource from the transaction worktop and into a bucket."
+  },
+  "Take from Worktop by Amount": {
+    "scope": "scope.rtm",
+    "prefix": "take_from_worktop_by_amount",
+    "body": "TAKE_FROM_WORKTOP_BY_AMOUNT Decimal(\"${1:Amount}\") ResourceAddress(\"${2:Resource Address}\") Bucket(\"${3:Bucket Name}\");",
+    "description": "Takes an amount a given resource from the transaction worktop and into a bucket."
+  },
+  "Take from Worktop by Ids": {
+    "scope": "scope.rtm",
+    "prefix": "take_from_worktop_by_ids",
+    "body": "TAKE_FROM_WORKTOP_BY_IDS TreeSet<NonFungibleId>(NonFungibleKey(\"${1:Non Fungible Id}\")) ResourceAddress(\"${2:Resource Address}\") Bucket(\"${3:Bucket Name}\");",
+    "description": "Takes non-fungible resources of the given ids the transaction worktop and into a bucket."
+  },
+  
+  // Take from worktop instructions
+  "Assert Worktop Contains": {
+    "scope": "scope.rtm",
+    "prefix": "assert_worktop_contains",
+    "body": "ASSERT_WORKTOP_CONTAINS ResourceAddress(\"${1:Resource Address}\");",
+    "description": "Verifies that the worktop contains any of a given resource."
+  },
+  "Assert Worktop Contains by Amount": {
+    "scope": "scope.rtm",
+    "prefix": "assert_worktop_contains_by_amount",
+    "body": "ASSERT_WORKTOP_CONTAINS_BY_AMOUNT Decimal(\"${1:Amount}\") ResourceAddress(\"${2:Resource Address}\");",
+    "description": "Verifies that the worktop contains some amount of a given resource."
+  },
+  "Assert Worktop Contains by Ids": {
+    "scope": "scope.rtm",
+    "prefix": "assert_worktop_contains_by_ids",
+    "body": "ASSERT_WORKTOP_CONTAINS_BY_IDS TreeSet<NonFungibleId>(NonFungibleKey(\"${1:Non Fungible Id}\")) ResourceAddress(\"${2:Resource Address}\");",
+    "description": "Verifies that the worktop non-fungible resources of given ids and a given resource address."
+  },
+
+  // Return to worktop instructions
+  "Return to Worktop": {
+    "scope": "scope.rtm",
+    "prefix": "return_to_worktop",
+    "body": "RETURN_TO_WORKTOP Bucket(\"${1:Bucket Name}\");",
+    "description": "Returns the contents of a bucket to the transaction worktop."
+  },
+
+  // Auth Zone instructions
+  "Pop from Auth Zone": {
+    "scope": "scope.rtm",
+    "prefix": "pop_from_auth_zone",
+    "body": "POP_FROM_AUTH_ZONE Proof(\"${1:Proof Name}\");",
+    "description": "Pops the last added Proof from the Auth Zone stack and into a Proof."
+  },
+  "Push to Auth Zone": {
+    "scope": "scope.rtm",
+    "prefix": "push_to_auth_zone",
+    "body": "PUSH_TO_AUTH_ZONE Proof(\"${1:Proof Name}\");",
+    "description": "Pushes a Proof onto the Auth Zone stack."
+  },
+  "Clear Auth Zone": {
+    "scope": "scope.rtm",
+    "prefix": "clear_auth_zone",
+    "body": "CLEAR_AUTH_ZONE;",
+    "description": "Drops all of the Proofs in the Auth Zone."
+  },
+
+  // Proof Instructions
+  "Create Proof from Bucket": {
+    "scope": "scope.rtm",
+    "prefix": "create_proof_from_bucket",
+    "body": "CREATE_PROOF_FROM_BUCKET Bucket(\"${1:Bucket Name}\") Proof(\"${2:Proof Name}\");",
+    "description": "Creates a Proof from a given bucket."
+  },
+  "Clone Proof": {
+    "scope": "scope.rtm",
+    "prefix": "clone_proof",
+    "body": "CLONE_PROOF Proof(\"${1:Original Proof Name}\") Proof(\"${2:Cloned Proof Name}\");",
+    "description": "Clones a Proof."
+  },
+  "Drop Proof": {
+    "scope": "scope.rtm",
+    "prefix": "drop_proof",
+    "body": "DROP_PROOF Proof(\"${1:Proof Name}\");",
+    "description": "Drops a Proof."
+  },
+
+  // Method and Function calls along with system instructions
+  "Call Function": {
+    "scope": "scope.rtm",
+    "prefix": "call_function",
+    "body": "CALL_FUNCTION PackageAddress(\"${1:Package Address}\") \"${2:Blueprint Name}\" \"${3:Function Name}\" ${4:Args...};",
+    "description": "Calls a blueprint function in a given package with the provided arguments."
+  },
+  "Call Method": {
+    "scope": "scope.rtm",
+    "prefix": "call_method",
+    "body": "CALL_METHOD ComponentAddress(\"${1:Component Address}\") \"${2:Method Name}\" ${3:Args...};",
+    "description": "Calls a method on a component with the provided arguments."
+  },
+  "Call Method with All Resources": {
+    "scope": "scope.rtm",
+    "prefix": "call_method_with_all_resources",
+    "body": "CALL_METHOD_WITH_ALL_RESOURCES ComponentAddress(\"${1:Component Address}\") \"${2:Method Name}\";",
+    "description": "Calls a method on a component with all resources in the transaction worktop and in buckets."
+  },
+  "Publish Package with Blob": {
+    "scope": "scope.rtm",
+    "prefix": "publish_package_with_blob",
+    "body": "PUBLISH_PACKAGE Blob(\"${1:Code Blob}\");",
+    "description": "Publishes a package with the given code."
+  },
+  "Publish Package with Bytes Vec": {
+    "scope": "scope.rtm",
+    "prefix": "publish_package_with_bytes_vec",
+    "body": "PUBLISH_PACKAGE Vec<U8>(\"${1:Code Bytes}\");",
+    "description": "Publishes a package with the given code."
+  }
+}
